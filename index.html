@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="obsidian">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d0f16" />
+  <title>Ecos del Más Allá — Antología | Nexo Flipbook</title>
+  <meta name="description" content="Experiencia de lectura interactiva Flipbook 3D de alta definición con animación realista de páginas, zoom libre y plataforma editorial autohospedable." />
+
+  <!-- Editorial Typography (graceful system fallback offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <a href="#stage-viewport" class="skip-link">Saltar al lector del ebook</a>
+  <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <div id="app-shell" class="app-shell">
+    <!-- ==================== TOP EDITORIAL BAR ==================== -->
+    <header id="reader-topbar" class="reader-topbar" role="banner">
+      <div class="topbar-left">
+        <button type="button" id="btn-open-library" class="pill-btn pill-brand" aria-label="Abrir biblioteca y plataforma de ebooks" title="Biblioteca y Gestión de Ebooks">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+          </svg>
+          <span class="btn-label">Biblioteca</span>
+        </button>
+
+        <div class="book-identity">
+          <h1 id="header-book-title" class="book-title">Ecos del Más Allá</h1>
+          <span id="header-book-subtitle" class="book-subtitle">Antología</span>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="popover-anchor">
+          <button type="button" id="btn-theme-menu" class="icon-btn" aria-label="Cambiar ambiente visual" aria-haspopup="true" aria-expanded="false" title="Tema y ambiente">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+            </svg>
+          </button>
+          <div id="theme-popover" class="floating-popover" hidden role="menu"></div>
+        </div>
+
+        <button type="button" id="btn-share" class="icon-btn" aria-label="Compartir y embeber ebook" title="Compartir, QR e insertar en tu web">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+          </svg>
+        </button>
+
+        <button type="button" id="btn-help" class="icon-btn hide-sm" aria-label="Atajos de teclado y gestos" title="Gestos y atajos (?)">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+        </button>
+
+        <button type="button" id="btn-top-fullscreen" class="icon-btn" aria-label="Pantalla completa" aria-pressed="false" title="Pantalla completa (F)">
+          <svg class="icon icon-fs-enter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 3 21 3 21 9" />
+            <polyline points="9 21 3 21 3 15" />
+            <line x1="21" y1="3" x2="14" y2="10" />
+            <line x1="3" y1="21" x2="10" y2="14" />
+          </svg>
+          <svg class="icon icon-fs-exit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="4 14 10 14 10 20" />
+            <polyline points="20 10 14 10 14 4" />
+            <line x1="14" y1="10" x2="21" y2="3" />
+            <line x1="3" y1="21" x2="10" y2="14" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- ==================== INTERACTIVE FLIPBOOK STAGE ==================== -->
+    <main id="stage-viewport" class="stage-viewport" tabindex="-1" aria-label="Área de lectura interactiva del ebook">
+      <!-- Floating Zoom Pan Hint -->
+      <div id="zoom-hint-banner" class="zoom-hint-banner" hidden>
+        <span>Modo zoom libre · Arrastra para explorar</span>
+        <button type="button" id="btn-reset-zoom-banner" class="zoom-banner-reset">Restablecer (100%)</button>
+      </div>
+
+      <!-- Edge Navigation Chevrons -->
+      <button type="button" id="btn-edge-prev" class="nav-edge-btn nav-edge-prev" aria-label="Página anterior" title="Página anterior (←)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+      </button>
+
+      <button type="button" id="btn-edge-next" class="nav-edge-btn nav-edge-next" aria-label="Página siguiente" title="Página siguiente (→)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+      </button>
+
+      <!-- Free Zoom & Pan Transform Layer -->
+      <div id="zoom-layer" class="zoom-layer">
+        <div id="book-shift" class="book-shift">
+          <div class="book-stage-frame">
+            <div id="book-shell" class="book-shell" data-mode="double" data-spread-state="front-cover"></div>
+            <div id="hires-overlay" class="hires-overlay" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Curtain -->
+      <div id="book-loader" class="book-loader" role="status" aria-live="polite">
+        <div class="loader-card">
+          <div class="loader-book-anim" aria-hidden="true">
+            <div class="loader-page"></div>
+            <div class="loader-page"></div>
+            <div class="loader-page"></div>
+          </div>
+          <h2 id="loader-book-title" class="loader-title">Ecos del Más Allá</h2>
+          <p id="loader-stage-text" class="loader-stage">Preparando experiencia flipbook…</p>
+          <div class="loader-track">
+            <div id="loader-progress-bar" class="loader-bar" style="width: 5%"></div>
+          </div>
+          <span id="loader-percent" class="loader-percent">5%</span>
+        </div>
+      </div>
+
+      <!-- Error State -->
+      <div id="book-error" class="book-error" hidden role="alert">
+        <div class="error-card">
+          <h2>No se pudo abrir este ebook</h2>
+          <p id="book-error-msg">Verifica que el archivo PDF exista o selecciona otra publicación desde la biblioteca.</p>
+          <button type="button" id="btn-error-library" class="btn-primary">Abrir Biblioteca</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- ==================== ACCESSIBLE FLOATING BOTTOM DOCK ==================== -->
+    <nav class="reader-dock-wrap" aria-label="Controles de lectura del ebook">
+      <!-- Timeline Scrubber Bar -->
+      <div class="scrubber-row">
+        <div class="scrubber-track-wrap">
+          <span id="scrubber-tooltip" class="scrubber-tooltip" aria-hidden="true">Pág. 1</span>
+          <input
+            type="range"
+            id="page-scrubber"
+            class="page-scrubber"
+            min="1"
+            max="1"
+            value="1"
+            aria-label="Deslizador de progreso de lectura"
+          />
+        </div>
+      </div>
+
+      <!-- Main Control Bar -->
+      <div class="reader-dock">
+        <!-- Left: Drawers (TOC, Thumbnails, Search) -->
+        <div class="dock-group dock-left">
+          <button type="button" id="btn-drawer-thumbs" class="dock-btn" aria-label="Miniaturas de páginas" title="Miniaturas (T)">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+          </button>
+
+          <button type="button" id="btn-drawer-toc" class="dock-btn" aria-label="Índice de contenidos" title="Índice">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="8" y1="6" x2="21" y2="6" />
+              <line x1="8" y1="12" x2="21" y2="12" />
+              <line x1="8" y1="18" x2="21" y2="18" />
+              <circle cx="4" cy="6" r="1" fill="currentColor" />
+              <circle cx="4" cy="12" r="1" fill="currentColor" />
+              <circle cx="4" cy="18" r="1" fill="currentColor" />
+            </svg>
+          </button>
+
+          <button type="button" id="btn-drawer-search" class="dock-btn" aria-label="Buscar texto en el libro" title="Buscar texto (/)">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Center: Page Navigation & Direct Jump -->
+        <div class="dock-group dock-center">
+          <button type="button" id="btn-first-page" class="dock-btn hide-xs" aria-label="Primera página" title="Primera página (Inicio)">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="11 17 6 12 11 7" />
+              <polyline points="18 17 13 12 18 7" />
+            </svg>
+          </button>
+
+          <button type="button" id="btn-prev-page" class="dock-btn" aria-label="Página anterior" title="Anterior (←)">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+
+          <div class="page-counter" title="Haz clic para escribir un número de página">
+            <input
+              type="number"
+              id="page-jump-input"
+              class="page-jump-input"
+              min="1"
+              max="1"
+              value="1"
+              inputmode="numeric"
+              aria-label="Número de página actual"
+            />
+            <span id="page-spread-label" class="sr-only">1</span>
+            <span id="page-total-label" class="page-total-label">/ —</span>
+          </div>
+
+          <button type="button" id="btn-next-page" class="dock-btn" aria-label="Página siguiente" title="Siguiente (→)">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+
+          <button type="button" id="btn-last-page" class="dock-btn hide-xs" aria-label="Última página" title="Última página (Fin)">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="13 17 18 12 13 7" />
+              <polyline points="6 17 11 12 6 7" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Right: Free Zoom, Spread, Sound & Fullscreen -->
+        <div class="dock-group dock-right">
+          <div class="zoom-cluster" role="group" aria-label="Controles de zoom libre">
+            <button type="button" id="btn-zoom-out" class="dock-btn" aria-label="Alejar zoom" title="Alejar (−)" disabled>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                <line x1="8" y1="11" x2="14" y2="11" />
+              </svg>
+            </button>
+            <button type="button" id="btn-zoom-reset" class="zoom-readout" aria-label="Restablecer zoom al 100%" title="Restablecer zoom (0)">100%</button>
+            <button type="button" id="btn-zoom-in" class="dock-btn" aria-label="Acercar zoom" title="Acercar (+)">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                <line x1="11" y1="8" x2="11" y2="14" />
+                <line x1="8" y1="11" x2="14" y2="11" />
+              </svg>
+            </button>
+          </div>
+
+          <button type="button" id="btn-spread-toggle" class="dock-btn" aria-label="Alternar vista de una o dos páginas" aria-pressed="true" title="Vista doble / única página">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 5.5A2.5 2.5 0 0 1 4.5 3H11a2 2 0 0 1 2 2v16a1.5 1.5 0 0 0-1.5-1.5H4.5A2.5 2.5 0 0 1 2 17V5.5z" />
+              <path d="M22 5.5A2.5 2.5 0 0 0 19.5 3H13a2 2 0 0 0-2 2v16a1.5 1.5 0 0 1 1.5-1.5h7A2.5 2.5 0 0 0 22 17V5.5z" />
+            </svg>
+          </button>
+
+          <button type="button" id="btn-sound-toggle" class="dock-btn hide-sm" aria-label="Activar o silenciar sonido de página" aria-pressed="true" title="Sonido de páginas (M)">
+            <svg class="icon icon-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+            </svg>
+            <svg class="icon icon-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <line x1="23" y1="9" x2="17" y2="15" />
+              <line x1="17" y1="9" x2="23" y2="15" />
+            </svg>
+          </button>
+
+          <button type="button" id="btn-fullscreen" class="dock-btn" aria-label="Alternar pantalla completa" aria-pressed="false" title="Pantalla completa (F)">
+            <svg class="icon icon-fs-enter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9" />
+              <polyline points="9 21 3 21 3 15" />
+              <line x1="21" y1="3" x2="14" y2="10" />
+              <line x1="3" y1="21" x2="10" y2="14" />
+            </svg>
+            <svg class="icon icon-fs-exit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="4 14 10 14 10 20" />
+              <polyline points="20 10 14 10 14 4" />
+              <line x1="14" y1="10" x2="21" y2="3" />
+              <line x1="3" y1="21" x2="10" y2="14" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ==================== SLIDE-OVER SIDE DRAWER ==================== -->
+    <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
+    <aside id="side-drawer" class="side-drawer" hidden role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+      <div class="drawer-header">
+        <h2 id="drawer-title" class="drawer-title">Panel</h2>
+        <button type="button" id="btn-close-drawer" class="icon-btn" aria-label="Cerrar panel">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <div id="drawer-pane-toc" class="drawer-body" hidden>
+        <div id="toc-list" class="toc-list"></div>
+      </div>
+
+      <div id="drawer-pane-thumbs" class="drawer-body" hidden>
+        <div id="thumbs-grid" class="thumbs-grid"></div>
+      </div>
+
+      <div id="drawer-pane-search" class="drawer-body" hidden>
+        <form id="pdf-search-form" class="search-form">
+          <input type="search" id="pdf-search-input" class="form-input" placeholder="Buscar palabras o títulos…" aria-label="Texto a buscar en el libro" />
+          <button type="submit" class="btn-primary btn-sm">Buscar</button>
+        </form>
+        <p id="pdf-search-status" class="search-status muted-note">Escribe un término y presiona Enter.</p>
+        <div id="pdf-search-results" class="search-results"></div>
+      </div>
+    </aside>
+
+    <!-- ==================== LIBRARY CATALOG MODAL ==================== -->
+    <div id="studio-modal" class="modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="studio-modal-title">
+      <div class="modal-window studio-window">
+        <header class="modal-header">
+          <div>
+            <h2 id="studio-modal-title" class="modal-title">Biblioteca Editorial</h2>
+            <p class="modal-subtitle">
+              Selecciona una publicación para leerla en formato flipbook interactivo.
+              <span id="library-count-label" class="tab-pill">1</span>
+            </p>
+          </div>
+          <button type="button" id="btn-close-studio" class="icon-btn" aria-label="Cerrar biblioteca">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </header>
+
+        <section id="studio-panel-library" class="studio-panel">
+          <div id="library-grid" class="library-grid"></div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ==================== SHARE, QR & EMBED MODAL ==================== -->
+    <div id="share-modal" class="modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="share-modal-heading">
+      <div class="modal-window share-window">
+        <header class="modal-header">
+          <div>
+            <h2 id="share-modal-heading" class="modal-title">Compartir y Embeber</h2>
+            <p id="share-book-title" class="modal-subtitle"></p>
+          </div>
+          <button type="button" id="btn-close-share" class="icon-btn" aria-label="Cerrar ventana de compartir">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </header>
+
+        <div class="share-body">
+          <div class="share-section">
+            <label for="share-url-input" class="form-label">Enlace directo al Flipbook</label>
+            <div class="input-action-row">
+              <input type="text" id="share-url-input" class="form-input" readonly />
+              <button type="button" id="btn-copy-share-url" class="btn-primary btn-sm">Copiar</button>
+            </div>
+            <label class="checkbox-label mt-xs">
+              <input type="checkbox" id="share-include-page" />
+              <span>Enlazar directamente a la página actual</span>
+            </label>
+          </div>
+
+          <div class="share-split">
+            <div class="share-section">
+              <label for="embed-code-textarea" class="form-label">Código para insertar en cualquier web (iframe)</label>
+              <textarea id="embed-code-textarea" class="form-input code-area" rows="5" readonly></textarea>
+              <button type="button" id="btn-copy-embed" class="btn-ghost btn-sm mt-xs">Copiar código iframe</button>
+            </div>
+
+            <div class="share-qr-box">
+              <span class="form-label">Código QR móvil</span>
+              <div id="share-qr-container" class="qr-canvas-box"></div>
+              <button type="button" id="btn-download-qr" class="btn-ghost btn-sm">Descargar QR (SVG)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== KEYBOARD & GESTURES HELP MODAL ==================== -->
+    <div id="help-modal" class="modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="help-modal-title">
+      <div class="modal-window help-window">
+        <header class="modal-header">
+          <h2 id="help-modal-title" class="modal-title">Controles, Gestos y Atajos</h2>
+          <button type="button" id="btn-close-help" class="icon-btn" aria-label="Cerrar ayuda">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </header>
+        <div class="help-grid">
+          <div>
+            <h3>Gestos táctiles y ratón</h3>
+            <ul class="help-list">
+              <li><strong>Arrastrar esquina o deslizar</strong> — Pasar página con animación 3D</li>
+              <li><strong>Pellizcar con 2 dedos / Rueda del ratón</strong> — Zoom libre continuo (100%–400%)</li>
+              <li><strong>Doble toque / Doble clic</strong> — Acercar al punto exacto o restablecer</li>
+              <li><strong>Arrastrar con zoom activo</strong> — Desplazarse libremente por la página</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Atajos de teclado</h3>
+            <ul class="help-list">
+              <li><kbd>←</kbd> / <kbd>→</kbd> — Página anterior / siguiente</li>
+              <li><kbd>Inicio</kbd> / <kbd>Fin</kbd> — Primera / última página</li>
+              <li><kbd>+</kbd> / <kbd>−</kbd> / <kbd>0</kbd> — Acercar / alejar / restablecer zoom</li>
+              <li><kbd>F</kbd> — Pantalla completa</li>
+              <li><kbd>T</kbd> — Miniaturas · <kbd>/</kbd> — Buscar · <kbd>M</kbd> — Sonido</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  </div>
+
+  <!-- Vendored Zero-Dependency Libraries (100% self-hosted) -->
+  <script src="vendor/page-flip/page-flip.browser.js"></script>
+  <script src="vendor/qrcode/qrcode.js"></script>
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
