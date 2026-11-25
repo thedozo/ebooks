@@ -1,0 +1,24 @@
+{
+  "site": {
+    "name": "Nexo Flipbook",
+    "tagline": "Plataforma Editorial Interactiva",
+    "defaultBook": "ecos-del-mas-alla"
+  },
+  "books": [
+    {
+      "id": "ecos-del-mas-alla",
+      "slug": "ecos-del-mas-alla",
+      "title": "Ecos del Más Allá",
+      "subtitle": "Antología",
+      "author": "Varios Autores",
+      "description": "Antología de microrrelatos presentada en experiencia flipbook interactiva con lectura en alta definición, zoom libre y diseño editorial adaptable.",
+      "pdfUrl": "books/ecos-del-mas-alla.pdf",
+      "pageCount": 24,
+      "theme": "obsidian",
+      "accent": "#d8aa54",
+      "spreadMode": "auto",
+      "showCover": true,
+      "soundEnabled": true
+    }
+  ]
+}
